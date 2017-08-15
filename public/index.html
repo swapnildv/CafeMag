@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Cafe Mag</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css" />
+    <link href="/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <h1>Cafe Mag - A Cafe Manager API</h1>
+    <div id="homepage">
+        <div id="menu_h">
+            Menu Cat
+        </div>
+    </div>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+    <!-- create React Component -->
+    <script type="text/babel">
+        var menus_r = React.createClass({
+            getInitialState: function(){
+               return({
+                    menus:[]
+               });
+            },
+            render: function() {
+                var menu_s = this.state.menus;
+                menu_s = menu_s.map(function(menu,index){
+                    return(
+                        <li key={index}>
+                            <span className={menu.obj.name}></span>
+                            <span className={menu.obj.unitPrice}></span>
+                        </li>
+                    )
+                });
+                return (
+                    <div id="menu-container">
+                        <form id="search" onSubmit={this.handleSubmit}>
+                            <label>Enter menu name : </label>
+                            <input type="text" ref="name" placeholder="Menu Name" required/>
+                            <input type="submit" value="Find Menus"/>
+                        </form>
+                        <ul>{menu_s}</ul>
+                    </div>
+                );
+            },
+            handleSubmit:function(e){
+                e.preventDefault();
+                var name = this.refs.name.value;
+
+                fetch('api/menus/').then(function(data){
+                    return data.json();
+                }).then(json => {
+                    this.setState({
+                        menus:json
+                    })
+                });
+            }
+        });
+
+        ReactDOM.render(<menus_r/>,document.getElementById("menu_h"));
+    </script>
+</body>
+
+</html>
