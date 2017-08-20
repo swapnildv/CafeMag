@@ -7,19 +7,23 @@ const SupDocSchema = new Schema({
         type: Date
     },
     History: {
-        _date:Date,
-        task:String,
-        projecid : mongoose.Schema.Types.ObjectId
+        _date: Date,
+        task: [{
+            name: String,
+            projecid: mongoose.Schema.Types.ObjectId
+        }]
     },
     Current: {
-        _date:Date,
-        task:String,
-        projecid : mongoose.Schema.Types.ObjectId
+        _date: Date,
+        task: [{
+            name: String,
+            projecid: mongoose.Schema.Types.ObjectId
+        }]
     },
-    userid : mongoose.Schema.Types.ObjectId,
-    modifiedBy : mongoose.Schema.Types.ObjectId
+    userid: mongoose.Schema.Types.ObjectId,
+    modifiedBy: mongoose.Schema.Types.ObjectId
 });
 
-const supDoc = mongoose.model('supdoc',SupDocSchema);
+const supDoc = mongoose.model('supdoc', SupDocSchema);
 
 module.exports = supDoc;
