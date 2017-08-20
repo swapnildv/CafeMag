@@ -19,6 +19,9 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 //3) initialize routes.
 app.use('/api', require('./routes/api'));
+app.use('/api', require('./routes/projectApi'));
+app.use('/api', require('./routes/userApi'));
+app.use('/api', require('./routes/supsheetApi'));
 //4) Error handling middleware.
 app.use(function (err, req, res, next) {
     res.status(422).send({ error: err.message });
